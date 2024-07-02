@@ -1,0 +1,26 @@
+.buttons {
+    flex: 1 1 auto;
+    border: none;
+  }
+  .defaultButton{
+    
+    border: none;
+    
+  }
+  /* .container{
+    overflow: hidden;
+    width: 150px;
+    height: 40px;
+  } */
+  .text{
+    text-align: center;
+    flex: 2 1 auto;
+   
+  }
+  .collap{
+      display: flex;
+      align-items: center;
+      width: 97%;
+      border-radius: 10px;
+      background-color: rgba(255, 255, 255, 1);
+  }

@@ -1,0 +1,12 @@
+.positioning{
+    position: fixed;
+    bottom: 0;
+    display: inline-block;
+    text-align: center;
+    background-color: rgb(241, 234, 234);
+    width: 100%;
+}
+
+.indic{
+    z-index: 2;
+}
