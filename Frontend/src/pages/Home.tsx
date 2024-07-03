@@ -17,7 +17,7 @@ function Home() {
 
   const getAllProductsAmount = (products: Products[]) => {
     const totalAmount = products.reduce(
-      (acc, product) => acc + product.crrAmount,
+      (acc, product) => acc + (product.crrAmount ?? 0),
       0
     );
     setAmount(totalAmount);
@@ -29,7 +29,7 @@ function Home() {
         "http://localhost:8082/api/products"
       ); // Full URL to your backend
       console.log(response.data);
-      setProducts(response.data);
+      setProducts(response.data.concat(response.data));
     } catch (err) {
       console.log(err);
     }
@@ -39,9 +39,9 @@ function Home() {
     getProducts();
   }, []);
 
-    useEffect(() => {
-      getAllProductsAmount(products);
-    }, [products]);
+  useEffect(() => {
+    getAllProductsAmount(products);
+  }, [products]);
   return (
     <>
       <Container my="md">
@@ -55,23 +55,18 @@ function Home() {
                 animate={false}
               />
             </Grid.Col>
-            {products.map((product) => (
+            {products.map((product, index) => (
               <Grid.Col span={6}>
                 <Product
-                  key={product.id}
+                  key={index}
                   height={rem(250)}
                   radius={10}
                   product={product}
-                />
-              </Grid.Col>
-            ))}
-            {products.map((product) => (
-              <Grid.Col span={6}>
-                <Product
-                  key={product.id}
-                  height={rem(250)}
-                  radius={10}
-                  product={product}
+                  updateProduct={(udpatedProduct: Products) => {
+                    const updatedProducts = [...products];
+                    updatedProducts[index] = udpatedProduct;
+                    setProducts(updatedProducts);
+                  }}
                 />
               </Grid.Col>
             ))}

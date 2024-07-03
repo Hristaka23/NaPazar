@@ -1,29 +1,27 @@
 import { IconMinus, IconPlus } from "@tabler/icons-react";
-import { useState,useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Text, Flex, Button, Collapse, Center } from "@mantine/core";
 import styles from "../../assets/css/QuantityCounter.module.css";
 import { useDisclosure } from "@mantine/hooks";
-import {Products} from '../Product/Product';
-
+import { Products } from "../Product/Product";
 
 interface Props {
   product: Products;
+  updateProduct(product: Products): void;
 }
 
-function QuantityCounter({product}: Props) {
-  const [productsInCart, setProductsInCart] = useState<Products[]>([]);
-
+function QuantityCounter({ product, updateProduct }: Props) {
   const [quantity, setQuantity] = useState(0);
   const [opened, handle] = useDisclosure(false);
 
   useEffect(() => {
-    product.crrAmount = quantity;
+    const updatedProduct = {...product};
+    updatedProduct.crrAmount = quantity;
+    updateProduct(updatedProduct);
     console.log(product.crrAmount);
-  }, [quantity, product]);
+  }, [quantity]);
   return (
     <>
-   
-
       {!opened && (
         <Button
           variant="filled"
@@ -34,7 +32,7 @@ function QuantityCounter({product}: Props) {
             setQuantity(quantity + 1);
 
             handle.open();
-          }} 
+          }}
           className={styles.defaultButton}
         >
           <IconPlus size="12" stroke="4" color="rgba(255, 66, 66, 0.82)" />
@@ -56,7 +54,9 @@ function QuantityCounter({product}: Props) {
         >
           <IconMinus size="12" stroke="4" color="rgba(255, 66, 66, 0.82)" />
         </Button>
-        <Text c="black" fw={500} className={styles.text}>{quantity}</Text>
+        <Text c="black" fw={500} className={styles.text}>
+          {quantity}
+        </Text>
         <Button
           variant="filled"
           color="rgba(255, 255, 255, 1)"

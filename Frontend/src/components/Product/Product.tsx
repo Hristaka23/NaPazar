@@ -15,22 +15,22 @@ import styles from "../../assets/css/Product.module.css";
 import QuantityCounter from "../QuantityCounter/QuantityCounter";
 import BadgeDiscount from "../BadgeDiscount/BadgeDiscount";
 
-export type Products ={
+export type Products = {
   id: string;
   title: string;
   price: string;
   image: string;
   crrAmount: number;
-}
-
+};
 
 interface Props {
   height: string;
   radius: number;
   product: Products;
+  updateProduct(product: Products): void;
 }
 
-function Product({ height, radius,product }: Props) {
+function Product({ height, radius, product, updateProduct }: Props) {
   return (
     <Card
       radius="lg"
@@ -50,7 +50,7 @@ function Product({ height, radius,product }: Props) {
           wrap="wrap"
           className={styles.counterOnImg}
         >
-          <QuantityCounter product={product} />
+          <QuantityCounter updateProduct={updateProduct} product={product} />
         </Flex>
       </Card.Section>
 
